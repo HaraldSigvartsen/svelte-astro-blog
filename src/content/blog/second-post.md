@@ -1,5 +1,6 @@
 ---
 title: "Glasses"
+subtitle: "Imagine a world without glasses"
 description: "Lorem ipsum dolor sit amet"
 pubDate: "Jul 22 2022"
 heroImage: "images/glasses.jpg"
