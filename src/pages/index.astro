@@ -1,31 +1,50 @@
 ---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../components/BaseLayout.astro'
+import Intro from '../components/Intro/Intro.svelte'
+import TypeWriter from '../components/TypeWriter.svelte'
 
-import BaseLayout from '../components/BaseLayout.astro';
-import Intro from '../components/Intro/Intro.svelte';
-import TypeWriter from '../components/TypeWriter.svelte';
+const posts = (await getCollection('blog')).sort(
+	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+)
 ---
 
 <BaseLayout>
-		
-			<section class="">
-				<div
-					class="relative mt-2 flex flex-col items-center justify-center md:mt-6 md:flex-row"
+	<section class="">
+		<div class="relative mt-2 flex flex-col items-center justify-center md:mt-6 md:flex-row">
+			<div class="flex flex-col items-center justify-center p-2 px-5 py-4">
+				<h1
+					class="flex flex-col bg-gradient-to-r from-[#c1121f] to-[#669bbc] bg-clip-text p-2 text-5xl font-semibold text-transparent md:block lg:p-5 lg:text-7xl"
 				>
-					<div class="flex flex-col items-center justify-center p-2 py-4 px-5">
-						<h1
-							class=" flex flex-col bg-gradient-to-r from-[#c1121f] to-[#669bbc] bg-clip-text p-2 text-5xl font-semibold text-transparent md:block lg:p-5 lg:text-7xl"
+					<span class="py-2"><TypeWriter client:load /></span>
+				</h1>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto my-6 h-fit w-10/12 max-w-[1024px] bg-[#003049]/70  text-[#fdf0d5]">
+		<Intro />
+	</section>
+
+	<section class="mx-20 my-40">
+		<h2 class="mb-4 text-left text-2xl font-normal text-[#669bbc]">Latest posts</h2>
+		<ul class="grid w-3/5 gap-4">
+			{
+				// Max 5 posts
+				posts.slice(0, 5).map((post) => (
+					<li class="group hover:translate-x-4 duration-300 h-fit bg-[#a5a58d]/70 hover:bg-[#6b705c] rounded-lg  px-16 py-4 text-center transition-all hover:shadow-lg ">
+						<a
+							class=" text-xl font-normal  text-white transition-all "
+							href={`/blog/${post.slug}/`}
 						>
-							 <span class="py-2"><TypeWriter client:load /></span>
-						</h1>
-					</div>
-				</div>
-			</section>
-
-			<section class="h-fit w-10/12 max-w-[1024px] my-6 mx-auto bg-[#003049]/70 text-[#fdf0d5]">
-				<Intro />
-			</section>
-
-			<section>
-				
-			</section>
+							<h3 class="w-full  ">{post.data.title}</h3>
+							<p>
+								{post.data.subtitle}
+							</p>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
 </BaseLayout>
