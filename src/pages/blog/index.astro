@@ -1,0 +1,54 @@
+---
+import BaseHead from '../../components/BaseHead.astro'
+import Header from '../../components/Header.astro'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts'
+import { getCollection } from 'astro:content'
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+)
+
+---
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="m-0">
+		<Header title={SITE_TITLE} />
+		<main>
+			<div class="w-full text-center">
+				<h1 class="text-4xl my-4">Blog posts</h1>
+			
+ <section class="mx-auto w-6/12 lg:w-11/12">
+				<ul class="grid gap-10 lg:grid-cols-2">
+					{
+						posts.map((post) => (
+							<li
+								style={{
+									backgroundImage: `url(${post.data.heroImage})`,
+									backgroundRepeat: 'no-repeat',
+									backgroundSize: 'cover',
+									backgroundPosition: 'center'
+								}}
+								class="group h-48 px-16 py-4 text-center transition-all hover:shadow-lg "
+							>
+								<a
+									class=" text-6xl font-normal  text-white transition-all group-hover:font-bold"
+									href={`/blog/${post.slug}/`}
+								>
+									<p class="w-full py-4 ">{post.data.title}</p>
+									<p class="text-lg bg-white/90 text-black">{post.data.description}</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+
+			
+		</main>
+	</body>
+</html>

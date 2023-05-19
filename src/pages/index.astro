@@ -1,18 +1,11 @@
 ---
-import TypeWriter from '$lib/components/TypeWriter.svelte';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import Intro from '../components/Intro/Intro.svelte';
+import TypeWriter from '../components/TypeWriter.svelte';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION}  />
-	</head>
-	<bod class="m-0">
-		<Header title={SITE_TITLE} />
-		<main>
+<BaseLayout>
 		
 			<section class="">
 				<div
@@ -28,6 +21,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				</div>
 			</section>
 
-		</main>
-	</bod>
-</html>
+			<section class="h-fit w-10/12 max-w-[1024px] my-6 mx-auto bg-[#003049]/70 text-[#fdf0d5]">
+				<Intro />
+			</section>
+
+			<section>
+				
+			</section>
+</BaseLayout>

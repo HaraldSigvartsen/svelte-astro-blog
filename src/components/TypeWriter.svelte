@@ -1,4 +1,6 @@
 <script>
+    // Generated from ChatGPT with some adjustments
+
 	import { onMount } from "svelte";
 
 	//Use in async

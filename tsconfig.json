@@ -1,10 +1,6 @@
 {
+	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
-		"module": "esnext",
-		"baseUrl": ".",
-		"paths": {
-			"$lib/*": ["src/*"]
-		}
-	},
-	"extends": "astro/tsconfigs/strict"
+		"strictNullChecks": true
+	}
 }
